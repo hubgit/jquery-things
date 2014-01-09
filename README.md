@@ -1,35 +1,37 @@
-# jQuery Things
+# jQuery Microdata
 
-Extract and manipulate objects stored in [HTML Microdata](http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html), using a simple API.
+Extract and manipulate objects stored in [HTML Microdata](http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html), using a simple interface.
 
-### Get all the things of a certain type
+### Get all items of a certain type
 
-$(node).things(itemtype) => an array of Thing objects
+$(node).items(itemtype)
 
-    $('#albumlist').things('http://schema.org/MusicAlbum') => [Thing, Thing, Thing]
+    $('#albumlist').items('http://schema.org/MusicAlbum')
 
-### Get a property of a thing as a single item
+### Get a property
 
-Thing.data(property) => a literal value or a Thing
+$(node).microdata(property) => a literal value or a jQuery object
 
-    thing.data('name') => string
+    $(node).microdata('name') => string
 
-    thing.data('byArtist') => Thing
+    $(node).microdata('byArtist') => jQuery object
 
-    thing.data('byArtist').data('name') => string
+    $(node).microdata('byArtist').microdata('name') => string
 
-### Get a property of a thing as an array of items
+### Set a property
 
-Thing.data(property, true) => an array of literal values or Things
+$(node).microdata(property, value)
 
-    thing.data('name', true) => [string]
+	$(node).microdata('name', 'Yellow Submarine')
 
-    thing.data('byArtist').data('album', true) => [Thing, Thing, Thing]
+	$(node).microdata('byArtist')
+	     .microdata('name', 'The Beatles')
+	     .microdata('url', 'https://en.wikipedia.org/wiki/The_Beatles')
 
-### Set a property of a thing
+ ### Get a property as an array
 
-Thing.data(property, value)
+ $(node).microdata(property, true) => an array of literal values or jQuery objects
 
-	thing.data('byArtist')
-	     .data('name', 'The Beatles')
-	     .data('url', 'https://en.wikipedia.org/wiki/The_Beatles')
+     $(node).microdata('name', true) => [ string, string ]
+
+     $(node).microdata('byArtist').microdata('album', true) => [ jQuery object, jQuery object ]
