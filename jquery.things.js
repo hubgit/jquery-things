@@ -140,37 +140,41 @@
 
 	// properties as a data object
 	$.fn.microdata = function(name, value) {
+		// get/set a specific property
+		if (typeof name === 'undefined') {
+			return this.buildData();
+		}
+
+		var plural = name.match(/\+$/);
+
+		if (plural) {
+			name = name.replace(/\+$/, '');
+		}
+
+		// get the value of multiple nodes by name
+		if (plural) {
+			return this.propertyValues(name);
+		}
+
+		// set the value of a single node or multiple nodes by name
+		if (typeof value !== 'undefined') {
+			$.each(this.propertyNodes(name), function() {
+				$(this).itemValue(value);
+			});
+
+			return this;
+		}
+
+		// get the value of a single node
+		return this.propertyValues(name)[0];
+	};
+
+	$.fn.buildData = function() {
 		if (this.length > 1) {
 			return this.map(function() {
 				return $(this).microdata();
 			}).toArray();
 		};
-
-		// get/set a specific property
-		if (typeof name !== 'undefined') {
-			var plural = name.match(/\+$/);
-
-			if (plural) {
-				name = name.replace(/\+$/, '');
-			}
-
-			// get the value of multiple nodes by name
-			if (plural) {
-				return this.propertyValues(name);
-			}
-
-			// set the value of a single node or multiple nodes by name
-			if (typeof value !== 'undefined') {
-				$.each(this.propertyNodes(name), function() {
-					$(this).itemValue(value);
-				});
-
-				return this;
-			}
-
-			// get the value of a single node
-			return this.propertyValues(name)[0];
-		}
 
 		// the object always includes an itemtype
 		var data = {
@@ -182,7 +186,40 @@
 			var property = this[1].itemValue();
 
 			if (property instanceof jQuery) {
-				property = property.microdata();
+				property = property.buildData();
+			}
+
+			if (typeof data[name] == 'undefined') {
+				data[name] = property; // first item
+			} else if ($.isArray(data[name])) {
+				data[name].push(property); // more items
+			} else {
+				data[name] = [data[name], property];
+			}
+		});
+
+		return data;
+	};
+
+	// properties as a data object
+	$.fn.properties = function(name, value) {
+		if (this.length > 1) {
+			return this.map(function() {
+				return $(this).properties();
+			}).toArray();
+		};
+
+		// the object always includes an itemtype
+		var data = {
+			type: this.itemType()
+		};
+
+		$.each(this.propertyList(), function() {
+			var name = this[0];
+			var property = this[1].itemValue();
+
+			if (property instanceof jQuery) {
+				property = property.properties();
 			}
 
 			if (typeof data[name] == 'undefined') {

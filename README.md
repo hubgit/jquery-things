@@ -4,11 +4,54 @@ Extract and manipulate objects stored in [HTML Microdata](http://www.whatwg.org/
 
 [Demonstration](http://git.macropus.org/jquery-things/)
 
+## W3C-like interface
+
+### Get all things of a certain type
+
+$(node).items(itemtype)
+
+    $('#albumlist').items('http://schema.org/MusicAlbum')
+
+### Get the nodes for a property
+
+$(node).property(property) => a jQuery collection of nodes
+
+    $(node).property('name') => [ node, node ]
+
+    $(node).property('byArtist')[0].property('album') => [ node, node ]
+
+### Get the value of a property
+
+$(node).value() => the itemValue of the node(s)
+
+    $(node).property('name').value() => string
+
+    $(node).property('byArtist')[0].property('name').value() => string
+
+### Set a property
+
+$(node).property(property).value(value)
+
+    $(node).property('name').value('Yellow Submarine')
+
+    $(node).property('byArtist')[0]
+           .property('name').value('The Beatles')
+           .property('url').value('https://en.wikipedia.org/wiki/The_Beatles')
+
+
+### Get all properties
+
+$(node).microdata()
+
+    $('#albumlist').items('http://schema.org/MusicAlbum').microdata()
+
 ### Get all things of a certain type
 
 $(node).things(itemtype)
 
     $('#albumlist').things('http://schema.org/MusicAlbum')
+
+## Simple interface
 
 ### Get a property
 

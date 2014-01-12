@@ -1,6 +1,15 @@
 /* set a value */
 
 $(function() {
+	var albums = $('#albumlist').items('http://schema.org/MusicAlbum');
+
+	albums.eq(0)
+		.property('byArtist')[0]
+		.property('name').value('Jesu')
+		.property('url').value('https://en.wikipedia.org/wiki/Jesu');
+});
+
+$(function() {
 	var albums = $('#albumlist').things('http://schema.org/MusicAlbum');
 
 	albums.eq(0)
@@ -113,7 +122,15 @@ $(function() {
 	});
 });
 
-/* convert to JSON */
+/* convert to JSON - W3C interface */
+
+$(function() {
+	var albums = $('#albumlist').items('http://schema.org/MusicAlbum');
+	var code = $('<code/>', { text: JSON.stringify(albums.properties(), null, 2) });
+	$('<pre/>').append(code).appendTo('body');
+});
+
+/* convert to JSON - simple interface */
 
 $(function() {
 	var albums = $('#albumlist').things('http://schema.org/MusicAlbum');
