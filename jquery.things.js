@@ -18,10 +18,6 @@
 
 	// get or set the itemValue of a node
 	$.fn.itemValue = function(value) {
-		if (!this.length) {
-			return $();
-		}
-
 		var getting = typeof value == 'undefined';
 
 		if (this.is('[itemscope]')) {
@@ -184,7 +180,9 @@
 
 		// get the value of a single node
 		if (typeof value === 'undefined') {
-			return this.namedItem(name).itemValue();
+			var items = this.namedItem(name);
+
+			return items.length ? items.itemValue() : $();
 		}
 
 		// set the value of a single node or multiple nodes by name
