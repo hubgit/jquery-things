@@ -75,7 +75,7 @@ $(node).microdata(property, value)
 
 ### Get a property as an array
 
-$(node).microdata(property+,) => an array of literal values or jQuery objects
+$(node).microdata(property+) => an array of literal values or jQuery objects
 
     $(node).microdata('name+') => [ string, string ]
 
