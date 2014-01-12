@@ -45,13 +45,13 @@ $(node).microdata()
 
     $('#albumlist').items('http://schema.org/MusicAlbum').microdata()
 
+## Simple interface
+
 ### Get all things of a certain type
 
 $(node).things(itemtype)
 
     $('#albumlist').things('http://schema.org/MusicAlbum')
-
-## Simple interface
 
 ### Get a property
 
