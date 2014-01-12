@@ -78,7 +78,7 @@
 	};
 
 	// all property nodes, including those in referenced nodes
-	$.fn.propertyNodes = function() {
+	$.fn.properties = function() {
 		var refs = this.attrs('itemRef').map(function() {
 			return document.getElementById(this);
 		});

@@ -2,9 +2,9 @@
 
 Extract and manipulate objects stored in [HTML Microdata](http://www.whatwg.org/specs/web-apps/current-work/multipage/microdata.html), using a simple interface.
 
-[Demonstration](http://git.macropus.org/jquery-things/)
-
 ## Simple interface
+
+[Demonstration](http://git.macropus.org/jquery-things/demo/things/)
 
 ### Get all things of a certain type
 
@@ -45,6 +45,8 @@ $(node).microdata()
     $('#albumlist').things('http://schema.org/MusicAlbum').microdata()
 
 ## W3C-like interface
+
+[Demonstration](http://git.macropus.org/jquery-things/demo/microdata/)
 
 ### Get all things of a certain type
 
