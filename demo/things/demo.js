@@ -45,13 +45,17 @@ $(function() {
 			// group (artist)
 			var artist = $(this);
 
+			var names = artist.microdata('name', function() {
+				return $(this).itemValue();
+			});
+
 			$('<a/>', {
 				href: artist.microdata('url'),
-				text: artist.microdata('name')
+				text: names.get().join(', '),
 			}).appendTo(cell).wrap('<div/>');
 
 			// group's members
-			var members = artist.microdata('musicGroupMember').map(function() {
+			var members = artist.microdata('musicGroupMember', function() {
 				return $(this).microdata('name');
 			});
 
@@ -62,7 +66,7 @@ $(function() {
 			}
 
 			// group's albums
-			var albums = artist.microdata('album').map(function() {
+			var albums = artist.microdata('album', function() {
 				return $(this).microdata('name');
 			});
 

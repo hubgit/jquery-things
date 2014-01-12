@@ -184,8 +184,11 @@
 			items = items.eq(index);
 		}
 
-		if (value === true) {
-			return items.length ? items.itemValue() : $();
+		// TODO: convert an array of strings to a single string?
+
+		// apply a callback to each item
+		if (typeof value === 'function') {
+			return items.map(value);
 		}
 
 		// get the value of a single node
