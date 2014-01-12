@@ -75,11 +75,11 @@ $(node).microdata(property, value)
 
 ### Get a property as an array
 
-$(node).microdata(property, true) => an array of literal values or jQuery objects
+$(node).microdata(property+,) => an array of literal values or jQuery objects
 
-    $(node).microdata('name', true) => [ string, string ]
+    $(node).microdata('name+') => [ string, string ]
 
-    $(node).microdata('byArtist').microdata('album', true) => [ jQuery object, jQuery object ]
+    $(node).microdata('byArtist').microdata('album+') => [ jQuery object, jQuery object ]
 
 ### Get all properties
 
