@@ -18,7 +18,7 @@
 
 	// get or set the itemValue of a node
 	$.fn.itemValue = function(value) {
-		var getting = typeof value == 'undefined';
+		var getting = value == null;
 
 		if (this.is('[itemscope]')) {
 			if (!getting) {
@@ -161,33 +161,41 @@
 	};
 
 	// properties as a data object
-	$.fn.microdata = function(name, value) {
+	$.fn.microdata = function(name, value, index) {
+		var nodes = this;
+
 		// get all the properties
-		if (typeof name === 'undefined') {
-			return this.propertiesObject(true);
+		if (name == null) {
+			return nodes.propertiesObject(true);
 		}
 
 		// set multiple properties
 		if (typeof name === 'object') {
-			var node = this;
-
-			$.each(name, function(value, name) {
-				node.microdata(value, name);
+			$.each(name, function(name, value) {
+				nodes.microdata(name, value);
 			});
 
-			return this;
+			return nodes;
+		}
+
+		var items = nodes.namedItem(name);
+
+		if (index != null) {
+			items = items.eq(index);
+		}
+
+		if (value === true) {
+			return items.length ? items.itemValue() : $();
 		}
 
 		// get the value of a single node
-		if (typeof value === 'undefined') {
-			var items = this.namedItem(name);
-
+		if (value == null) {
 			return items.length ? items.itemValue() : $();
 		}
 
 		// set the value of a single node or multiple nodes by name
-		this.namedItem(name).value(value);
+		items.value(value);
 
-		return this;
+		return nodes;
 	};
 }(jQuery));
