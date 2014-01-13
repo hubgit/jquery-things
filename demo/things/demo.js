@@ -4,16 +4,16 @@ $(function() {
 	var albums = $('#albumlist').things('http://schema.org/MusicAlbum');
 
 	albums.eq(0)
-		.microdata('byArtist', null, 0)
-		.microdata('name', 'Jesu', 1)
+		.microdata(['byArtist', 0])
+		.microdata(['name', 1], 'Jesu')
 		.microdata('url', 'https://en.wikipedia.org/wiki/Jesu');
 
 	albums.eq(0)
-		.microdata('byArtist', null, 1)
-		.microdata({
+		.microdata(['byArtist', 0])
+		.microdata([{
 			'name': 'The Beatles',
 			'url': 'https://en.wikipedia.org/wiki/The_Beatles'
-		}, null, 0);
+		}, 1]);
 });
 
 /* display in a table */

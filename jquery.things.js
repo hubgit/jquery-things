@@ -162,6 +162,7 @@
 
 	// properties as a data object
 	$.fn.microdata = function(name, value, index) {
+		var index;
 		var nodes = this;
 
 		// get all the properties
@@ -169,13 +170,18 @@
 			return nodes.propertiesObject(true);
 		}
 
+		if ($.isArray(name)) {
+			index = name[1];
+			name = name[0];
+		}
+
 		// set multiple properties
 		if (typeof name === 'object') {
 			$.each(name, function(name, value) {
-				nodes.microdata(name, value);
+				nodes.microdata(name, value, index);
 			});
 
-			return nodes;
+			return items;
 		}
 
 		var items = nodes.namedItem(name);
